@@ -1,4 +1,5 @@
 import logo from './assets/Echo L .png';
+import herologo from './assets/ECHO ff.png';
 import './App.css';
 import trufLogo from './assets/Truf .png';
 import strikeLogo from './assets/Strike .png';
@@ -37,18 +38,21 @@ function App() {
         <div className="glow glow1"></div>
         <div className="glow glow2"></div>
 
+        
+        
+        <img
+          src={herologo}
+          alt="Echo Lab logo"
+          className="hero-logo"
+        />
         <p className="small-title">
           NOT YOUR USUAL LAB™
         </p>
 
         <h1>
-          Strategic marketing,
-          <br />
-          media, and brand
-          <br />
-          experiences built
-          <br />
-          to echo.
+          Create the Signal.
+           <br />
+           Leave the ECHO.
         </h1>
 
         <p className="hero-text">
