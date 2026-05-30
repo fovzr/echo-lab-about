@@ -78,7 +78,7 @@ button {
   max-width: 70vw;
   height: auto;
   display: block;
-  margin: 14px auto 28px;
+  margin: 10px auto 0.01px;
   object-fit: contain;
   opacity: 0;
   transform: translateY(18px) scale(0.82);

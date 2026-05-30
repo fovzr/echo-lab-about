@@ -49,7 +49,9 @@ function App() {
           NOT YOUR USUAL LAB™
         </p>
 
+
         <h1>
+          <br />
           Create the Signal.
            <br />
            Leave the ECHO.
@@ -376,7 +378,7 @@ function App() {
           className="social-icon linkedin"
           aria-label="Echo Lab LinkedIn"
         >
-          in
+          IN
         </a>
 
         <a
