@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import logo from './assets/Echo L .png';
 import herologo from './assets/ECHO ff.png';
 import './App.css';
@@ -9,6 +10,29 @@ import eyeziLogo from './assets/Eyezi.png';
 import tmhLogo from './assets/Tmh .png';
 
 function App() {
+  useEffect(() => {
+    const serviceCards = document.querySelectorAll('.service-story');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('service-story-visible');
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    serviceCards.forEach((card) => observer.observe(card));
+
+    return () => {
+      serviceCards.forEach((card) => observer.unobserve(card));
+    };
+  }, []);
+
   return (
     <div className="app">
 
@@ -57,20 +81,9 @@ function App() {
            Leave the ECHO.
         </h1>
 
-        <p className="hero-text">
-          Echo Lab is a Kuwait-based creative marketing agency specializing in
-          branding, campaigns, media production, and modern digital storytelling.
-        </p>
+        
 
-        <div className="hero-buttons">
-
-          <a href="#services">
-            <button className="primary-btn">
-              View Services
-            </button>
-          </a>
-
-        </div>
+        
 
       </section>
 
