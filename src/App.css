@@ -813,6 +813,26 @@ button {
     max-width: 120%;
     max-height: 150px;
   }
+  .client-grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 18px;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 18px;
+  margin-left: -6%;
+  margin-right: -6%;
+  padding-left: 6%;
+  padding-right: 6%;
+}
+
+.client-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.client-card {
+  min-width: 78%;
+  scroll-snap-align: center;
+}
 
   .service-story {
     grid-template-columns: 1fr;
