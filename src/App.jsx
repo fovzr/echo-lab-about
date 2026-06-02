@@ -126,53 +126,22 @@ function App() {
           media, and creative direction.
         </p>
 
-        {/* MARQUEE STRIP — always visible, left-to-right scroll */}
+        {/* MARQUEE — single belt, left to right */}
         <div className="client-logo-band">
-          <div className="client-logo-track">
-            {/* duplicated sets for seamless infinite loop */}
+          <div className="client-logo-row">
             <img src={trufLogo}   alt="Truf logo" />
-            <img src={strikeLogo} alt="Strike Tournament logo" />
+            <img src={strikeLogo} alt="Strike logo" />
             <img src={wsaltLogo}  alt="Wsalt logo" />
             <img src={wafraLogo}  alt="Wafra logo" />
             <img src={eyeziLogo}  alt="Eyezi logo" />
             <img src={tmhLogo}    alt="TMH logo" />
-
             <img src={trufLogo}   alt="Truf logo" />
-            <img src={strikeLogo} alt="Strike Tournament logo" />
+            <img src={strikeLogo} alt="Strike logo" />
             <img src={wsaltLogo}  alt="Wsalt logo" />
             <img src={wafraLogo}  alt="Wafra logo" />
             <img src={eyeziLogo}  alt="Eyezi logo" />
             <img src={tmhLogo}    alt="TMH logo" />
           </div>
-        </div>
-
-        {/* CARD GRID — desktop only */}
-        <div className="client-grid">
-
-          <div className="client-card">
-            <img src={trufLogo} alt="Truf logo" />
-          </div>
-
-          <div className="client-card">
-            <img src={strikeLogo} alt="Strike Tournament logo" />
-          </div>
-
-          <div className="client-card">
-            <img src={wsaltLogo} alt="Wsalt logo" />
-          </div>
-
-          <div className="client-card">
-            <img src={wafraLogo} alt="Wafra logo" />
-          </div>
-
-          <div className="client-card">
-            <img src={eyeziLogo} alt="Eyezi logo" />
-          </div>
-
-          <div className="client-card">
-            <img src={tmhLogo} alt="TMH logo" />
-          </div>
-
         </div>
 
       </section>
