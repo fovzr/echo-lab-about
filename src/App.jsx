@@ -62,8 +62,6 @@ function App() {
         <div className="glow glow1"></div>
         <div className="glow glow2"></div>
 
-        
-        
         <img
           src={herologo}
           alt="Echo Lab logo"
@@ -73,17 +71,12 @@ function App() {
           NOT YOUR USUAL LAB™
         </p>
 
-
         <h1>
           <br />
           Create the Signal.
            <br />
            Leave the ECHO.
         </h1>
-
-        
-
-        
 
       </section>
 
@@ -133,6 +126,27 @@ function App() {
           media, and creative direction.
         </p>
 
+        {/* MARQUEE STRIP — always visible, left-to-right scroll */}
+        <div className="client-logo-band">
+          <div className="client-logo-track">
+            {/* duplicated sets for seamless infinite loop */}
+            <img src={trufLogo}   alt="Truf logo" />
+            <img src={strikeLogo} alt="Strike Tournament logo" />
+            <img src={wsaltLogo}  alt="Wsalt logo" />
+            <img src={wafraLogo}  alt="Wafra logo" />
+            <img src={eyeziLogo}  alt="Eyezi logo" />
+            <img src={tmhLogo}    alt="TMH logo" />
+
+            <img src={trufLogo}   alt="Truf logo" />
+            <img src={strikeLogo} alt="Strike Tournament logo" />
+            <img src={wsaltLogo}  alt="Wsalt logo" />
+            <img src={wafraLogo}  alt="Wafra logo" />
+            <img src={eyeziLogo}  alt="Eyezi logo" />
+            <img src={tmhLogo}    alt="TMH logo" />
+          </div>
+        </div>
+
+        {/* CARD GRID — desktop only */}
         <div className="client-grid">
 
           <div className="client-card">
@@ -313,7 +327,7 @@ function App() {
             </p>
 
             <h2>
-              Let’s Build
+              Let's Build
               <br />
               Something That Echoes.
             </h2>
