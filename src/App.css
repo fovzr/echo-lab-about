@@ -241,26 +241,7 @@ button {
   overflow: hidden;
 }
 
-.client-logo-band::before,
-.client-logo-band::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  z-index: 3;
-  width: 120px;
-  height: 100%;
-  pointer-events: none;
-}
 
-.client-logo-band::before {
-  left: 0;
-  background: linear-gradient(90deg, #0f1722 40%, transparent);
-}
-
-.client-logo-band::after {
-  right: 0;
-  background: linear-gradient(270deg, #0f1722 40%, transparent);
-}
 
 .client-logo-row {
   display: flex;
@@ -802,9 +783,6 @@ button {
     margin-left: -6%;
     margin-top: 44px;
   }
-
-  .client-logo-band::before,
-  .client-logo-band::after { width: 60px; }
 
   .client-logo-row { gap: 48px; }
 
