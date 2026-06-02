@@ -250,7 +250,7 @@ button {
   width: max-content;
   padding: 28px 0;
   will-change: transform;
-  animation: marqueeRTL 28s linear infinite;
+  animation: marqueeRTL 16s linear infinite;
 }
 
 .client-logo-band:hover .client-logo-row {
@@ -258,9 +258,9 @@ button {
 }
 
 .client-logo-row img {
-  height: 80px;
+  height: 120px;
   width: auto;
-  max-width: 200px;
+  max-width: 280px;
   object-fit: contain;
   flex: 0 0 auto;
   opacity: 0.72;
@@ -787,8 +787,8 @@ button {
   .client-logo-row { gap: 48px; }
 
   .client-logo-row img {
-    height: 56px;
-    max-width: 140px;
+    height: 90px;
+    max-width: 200px;
   }
 
 
