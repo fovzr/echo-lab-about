@@ -10,49 +10,56 @@ import eyeziLogo from './assets/Eyezi.png';
 import tmhLogo from './assets/Tmh .png';
 
 function App() {
+
   const videoRef = useRef(null);
   const progressRef = useRef(null);
 
   useEffect(() => {
     const video = videoRef.current;
-    const progressBar = progressRef.current;
+    const bar = progressRef.current;
+    const overlay = document.querySelector('.showreel-loading');
     const section = document.querySelector('.showreel');
-
     if (!video || !section) return;
 
-    // Pause the video — we control it via scroll, not autoplay
     video.pause();
 
     const scrub = () => {
       const rect = section.getBoundingClientRect();
-      const sectionHeight = rect.height - window.innerHeight;
-      const scrolled = -rect.top;
-      const progress = Math.min(Math.max(scrolled / sectionHeight, 0), 1);
-
-      if (video.readyState >= 2 && video.duration) {
+      const total = rect.height - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const progress = Math.min(scrolled / total, 1);
+      if (video.duration) {
         video.currentTime = progress * video.duration;
       }
-      if (progressBar) {
-        progressBar.style.width = `${progress * 100}%`;
+      if (bar) bar.style.width = progress * 100 + '%';
+    };
+
+    const init = () => {
+      video.pause();
+      video.currentTime = 0;
+      // Hide loading overlay once fully buffered
+      if (overlay) overlay.style.opacity = '0';
+      scrub();
+      window.addEventListener('scroll', scrub, { passive: true });
+    };
+
+    // Wait for the whole video to be buffered (readyState 4)
+    // so every frame is available without black gaps
+    const checkReady = () => {
+      if (video.readyState === 4) {
+        init();
+      } else {
+        video.addEventListener('canplaythrough', init, { once: true });
       }
     };
 
-    // Run once on mount so it shows frame 0 immediately
-    const onReady = () => {
-      video.currentTime = 0;
-      scrub();
-    };
-
-    if (video.readyState >= 2) {
-      onReady();
+    if (video.readyState === 4) {
+      init();
     } else {
-      video.addEventListener('loadeddata', onReady, { once: true });
+      video.addEventListener('canplaythrough', init, { once: true });
     }
 
-    window.addEventListener('scroll', scrub, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', scrub);
-    };
+    return () => window.removeEventListener('scroll', scrub);
   }, []);
 
   useEffect(() => {
@@ -159,17 +166,17 @@ function App() {
       <section className="showreel">
         <div className="showreel-sticky">
           <video
-            className="showreel-video"
             ref={videoRef}
+            className="showreel-video"
             src="/showreel.mp4"
             muted
             playsInline
             preload="auto"
-            onLoadedData={() => {
-              const v = videoRef.current;
-              if (v) { v.pause(); v.currentTime = 0; }
-            }}
           />
+          {/* Loading overlay — hides until video is fully buffered */}
+          <div className="showreel-loading">
+            <p>Loading reel...</p>
+          </div>
           <div className="showreel-progress">
             <div className="showreel-progress-bar" ref={progressRef} />
           </div>
