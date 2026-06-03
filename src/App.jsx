@@ -10,37 +10,64 @@ import eyeziLogo from './assets/Eyezi.png';
 import tmhLogo from './assets/Tmh .png';
 
 function App() {
-  const videoRef   = useRef(null);
+  const videoRef = useRef(null);
   const progressRef = useRef(null);
 
-  // ── Scroll-scrub showreel, starting from midpoint ─────────
   useEffect(() => {
-    const video   = videoRef.current;
-    const bar     = progressRef.current;
+    const video = videoRef.current;
+    const bar = progressRef.current;
     const section = document.querySelector('.showreel');
+
     if (!video || !section) return;
+
+    const isMobile = window.matchMedia('(max-width: 700px)').matches;
+
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    if (isMobile) {
+      video.loop = true;
+      video.autoplay = true;
+      video.controls = false;
+
+      const playMobileVideo = () => {
+        video.currentTime = 0.1;
+        video.play().catch(() => {});
+      };
+
+      if (video.readyState >= 2) {
+        playMobileVideo();
+      } else {
+        video.addEventListener('loadeddata', playMobileVideo, { once: true });
+      }
+
+      if (bar) bar.style.width = '100%';
+      return;
+    }
 
     video.pause();
 
     const scrub = () => {
-      const rect     = section.getBoundingClientRect();
-      const total    = rect.height - window.innerHeight;
+      const rect = section.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
       const scrolled = Math.max(0, -rect.top);
       const progress = Math.min(scrolled / total, 1);
+
       if (!video.duration) return;
 
-      // Map scroll progress to second half of video (0.5 → 1.0),
-      // then wrap back to start so it loops seamlessly
-      const half     = video.duration / 2;
-      const raw      = half + progress * video.duration;
-      video.currentTime = raw % video.duration; // wraps at end
+      const half = video.duration / 2;
+      const raw = half + progress * video.duration;
+
+      video.currentTime = (raw + 2) % video.duration;
 
       if (bar) bar.style.width = progress * 100 + '%';
     };
 
     const init = () => {
       video.pause();
-      video.currentTime = video.duration / 2; // start at midpoint
+      video.currentTime = Math.max(0.1, video.duration / 2);
       scrub();
       window.addEventListener('scroll', scrub, { passive: true });
     };
@@ -54,29 +81,56 @@ function App() {
     return () => window.removeEventListener('scroll', scrub);
   }, []);
 
-  // ── Intersection observer for service cards ────────────────
   useEffect(() => {
-    const serviceCards = document.querySelectorAll('.service-story');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('service-story-visible');
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    serviceCards.forEach((card) => observer.observe(card));
-    return () => serviceCards.forEach((card) => observer.unobserve(card));
-  }, []);
+  const video = videoRef.current;
+  const bar = progressRef.current;
+  const section = document.querySelector('.showreel');
+
+  if (!video || !section) return;
+
+  video.pause();
+
+  const scrub = () => {
+    const rect = section.getBoundingClientRect();
+
+const start = window.innerHeight;
+const end = -rect.height;
+
+const progress = Math.min(
+  Math.max((start - rect.top) / (start - end), 0),
+  1
+);
+    if (!video.duration) return;
+
+    const half = video.duration / 2;
+    const raw = half + progress * video.duration;
+
+    video.currentTime = (raw + 2) % video.duration;
+
+    if (bar) bar.style.width = progress * 100 + '%';
+  };
+
+  const init = () => {
+    video.pause();
+    video.currentTime = video.duration / 2;
+    scrub();
+    window.addEventListener('scroll', scrub, { passive: true });
+  };
+
+  if (video.readyState >= 1) {
+    init();
+  } else {
+    video.addEventListener('loadedmetadata', init, { once: true });
+  }
+
+  return () => window.removeEventListener('scroll', scrub);
+}, []);
 
   return (
     <div className="app">
-
-      {/* NAVBAR */}
       <nav className="navbar">
         <img src={logo} alt="Echo Lab logo" className="logo-img" />
+
         <div className="nav-links">
           <a href="#about">About</a>
           <a href="#services">Services</a>
@@ -85,12 +139,14 @@ function App() {
         </div>
       </nav>
 
-      {/* HERO */}
       <section className="hero">
         <div className="glow glow1"></div>
         <div className="glow glow2"></div>
+
         <img src={herologo} alt="Echo Lab logo" className="hero-logo" />
+
         <p className="small-title">NOT YOUR USUAL LAB™</p>
+
         <h1>
           <br />
           Create the Signal.
@@ -99,10 +155,10 @@ function App() {
         </h1>
       </section>
 
-      {/* ABOUT */}
       <section id="about" className="about">
         <div>
           <p className="section-tag">ABOUT ECHO LAB</p>
+
           <h2>
             Built for brands
             <br />
@@ -111,6 +167,7 @@ function App() {
             be remembered.
           </h2>
         </div>
+
         <p className="about-text">
           Echo Lab combines strategy, creativity, and media production to help
           brands create meaningful impact. From campaigns and branding to
@@ -119,7 +176,6 @@ function App() {
         </p>
       </section>
 
-      {/* SHOWREEL */}
       <section className="showreel">
         <div className="showreel-sticky">
           <video
@@ -129,108 +185,176 @@ function App() {
             muted
             playsInline
             preload="auto"
+            aria-label="Echo Lab showreel"
           />
+
           <div className="showreel-progress">
             <div className="showreel-progress-bar" ref={progressRef} />
           </div>
         </div>
       </section>
 
-      {/* CLIENTS */}
       <section className="clients">
         <p className="section-tag">CLIENTS</p>
+
         <h2>Brands That Echo</h2>
+
         <p className="clients-text">
           A selection of brands and campaigns shaped through strategy, visuals,
           media, and creative direction.
         </p>
+
         <div className="client-logo-band">
           <div className="client-logo-row">
-            <img src={trufLogo}   alt="Truf logo" />
+            <img src={trufLogo} alt="Truf logo" />
             <img src={strikeLogo} alt="Strike logo" />
-            <img src={wsaltLogo}  alt="Wsalt logo" />
-            <img src={wafraLogo}  alt="Wafra logo" />
-            <img src={eyeziLogo}  alt="Eyezi logo" />
-            <img src={tmhLogo}    alt="TMH logo" />
-            <img src={trufLogo}   alt="Truf logo" />
+            <img src={wsaltLogo} alt="Wsalt logo" />
+            <img src={wafraLogo} alt="Wafra logo" />
+            <img src={eyeziLogo} alt="Eyezi logo" />
+            <img src={tmhLogo} alt="TMH logo" />
+
+            <img src={trufLogo} alt="Truf logo" />
             <img src={strikeLogo} alt="Strike logo" />
-            <img src={wsaltLogo}  alt="Wsalt logo" />
-            <img src={wafraLogo}  alt="Wafra logo" />
-            <img src={eyeziLogo}  alt="Eyezi logo" />
-            <img src={tmhLogo}    alt="TMH logo" />
+            <img src={wsaltLogo} alt="Wsalt logo" />
+            <img src={wafraLogo} alt="Wafra logo" />
+            <img src={eyeziLogo} alt="Eyezi logo" />
+            <img src={tmhLogo} alt="TMH logo" />
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
       <section id="services" className="services cinematic-services">
         <div className="services-intro">
           <p className="section-tag">SERVICES</p>
-          <h2>Creative systems<br />built to move brands.</h2>
+
+          <h2>
+            Creative systems
+            <br />
+            built to move brands.
+          </h2>
+
           <p className="services-lead">
             From strategy to production, Echo Lab builds campaign experiences
             that feel intentional, cinematic, and impossible to ignore.
           </p>
         </div>
+
         <div className="service-story-list">
           <article className="service-story service-story-one">
             <div className="service-symbol">✦</div>
+
             <div className="service-story-content">
               <span>01</span>
               <h3>Media & Marketing</h3>
-              <p>Strategy-led marketing, brand launches, media campaigns, and content systems designed to help brands show up with clarity.</p>
+
+              <p>
+                Strategy-led marketing, brand launches, media campaigns, and
+                content systems designed to help brands show up with clarity.
+              </p>
+
               <div className="service-tags">
-                <p>Branding Identity</p><p>Launching Strategy</p>
-                <p>Media Campaigns</p><p>Content Creation</p>
+                <p>Branding Identity</p>
+                <p>Launching Strategy</p>
+                <p>Media Campaigns</p>
+                <p>Content Creation</p>
               </div>
             </div>
           </article>
+
           <article className="service-story service-story-two">
             <div className="service-symbol">◐</div>
+
             <div className="service-story-content">
               <span>02</span>
               <h3>Creative Production</h3>
-              <p>Visual production for brands that need cinematic content, memorable photography, video direction, styling, and launch assets.</p>
+
+              <p>
+                Visual production for brands that need cinematic content,
+                memorable photography, video direction, styling, and launch
+                assets.
+              </p>
+
               <div className="service-tags">
-                <p>Videography</p><p>Photography</p>
-                <p>Video Production</p><p>Menu Photo Shoots</p>
+                <p>Videography</p>
+                <p>Photography</p>
+                <p>Video Production</p>
+                <p>Menu Photo Shoots</p>
               </div>
             </div>
           </article>
+
           <article className="service-story service-story-three">
             <div className="service-symbol">◎</div>
+
             <div className="service-story-content">
               <span>03</span>
               <h3>Brand Experience</h3>
-              <p>Events, PR activations, giveaways, booth concepts, and seasonal campaigns that turn a brand moment into something people remember.</p>
+
+              <p>
+                Events, PR activations, giveaways, booth concepts, and seasonal
+                campaigns that turn a brand moment into something people
+                remember.
+              </p>
+
               <div className="service-tags">
-                <p>Event Management</p><p>Public Relations</p>
-                <p>Booth Creation</p><p>Seasonal Campaigns</p>
+                <p>Event Management</p>
+                <p>Public Relations</p>
+                <p>Booth Creation</p>
+                <p>Seasonal Campaigns</p>
               </div>
             </div>
           </article>
         </div>
       </section>
 
-      {/* PROCESS */}
       <section id="process" className="process">
         <p className="section-tag">PROCESS</p>
+
         <h2>How We Work</h2>
+
         <div className="process-grid">
-          <div className="process-card"><span>01</span><h3>Discover</h3><p>Understanding your brand, goals, and audience.</p></div>
-          <div className="process-card"><span>02</span><h3>Strategize</h3><p>Building campaigns and creative direction.</p></div>
-          <div className="process-card"><span>03</span><h3>Create</h3><p>Producing visuals, media, and experiences.</p></div>
-          <div className="process-card"><span>04</span><h3>Launch</h3><p>Delivering campaigns designed to leave impact.</p></div>
+          <div className="process-card">
+            <span>01</span>
+            <h3>Discover</h3>
+            <p>Understanding your brand, goals, and audience.</p>
+          </div>
+
+          <div className="process-card">
+            <span>02</span>
+            <h3>Strategize</h3>
+            <p>Building campaigns and creative direction.</p>
+          </div>
+
+          <div className="process-card">
+            <span>03</span>
+            <h3>Create</h3>
+            <p>Producing visuals, media, and experiences.</p>
+          </div>
+
+          <div className="process-card">
+            <span>04</span>
+            <h3>Launch</h3>
+            <p>Delivering campaigns designed to leave impact.</p>
+          </div>
         </div>
       </section>
 
-      {/* CONTACT */}
       <section className="contact" id="contact">
         <div className="contact-wrapper">
           <div className="contact-left">
             <p className="section-tag">CONTACT</p>
-            <h2>Let's Build<br />Something That Echoes.</h2>
-            <p>We create bold marketing experiences, cinematic content, and unforgettable brand identities for modern businesses.</p>
+
+            <h2>
+              Let's Build
+              <br />
+              Something That Echoes.
+            </h2>
+
+            <p>
+              We create bold marketing experiences, cinematic content, and
+              unforgettable brand identities for modern businesses.
+            </p>
+
             <div className="contact-info">
               <div className="contact-item">
                 <span>Email us:</span>
@@ -238,26 +362,63 @@ function App() {
               </div>
             </div>
           </div>
+
           <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
             <div className="form-row">
               <input type="text" placeholder="Name" />
               <input type="text" placeholder="Company" />
             </div>
+
             <input type="email" placeholder="Email Address" />
+
             <textarea placeholder="Tell us about your project..." />
-            <button type="button" className="contact-btn">Start a Project</button>
+
+            <button type="button" className="contact-btn">
+              Start a Project
+            </button>
           </form>
         </div>
       </section>
 
-      {/* FLOATING SOCIALS */}
       <div className="floating-socials">
-        <a href="https://instagram.com/echolab.co" target="_blank" rel="noreferrer" className="social-icon instagram" aria-label="Echo Lab Instagram">IG</a>
-        <a href="https://wa.me/96590997115" target="_blank" rel="noreferrer" className="social-icon whatsapp" aria-label="Echo Lab WhatsApp">WA</a>
-        <a href="https://www.linkedin.com/company/echolabco/" target="_blank" rel="noreferrer" className="social-icon linkedin" aria-label="Echo Lab LinkedIn">IN</a>
-        <a href="mailto:info@echolabco.com" className="social-icon email" aria-label="Email Echo Lab">@</a>
-      </div>
+        <a
+          href="https://instagram.com/echolab.co"
+          target="_blank"
+          rel="noreferrer"
+          className="social-icon instagram"
+          aria-label="Echo Lab Instagram"
+        >
+          IG
+        </a>
 
+        <a
+          href="https://wa.me/96590997115"
+          target="_blank"
+          rel="noreferrer"
+          className="social-icon whatsapp"
+          aria-label="Echo Lab WhatsApp"
+        >
+          WA
+        </a>
+
+        <a
+          href="https://www.linkedin.com/company/echolabco/"
+          target="_blank"
+          rel="noreferrer"
+          className="social-icon linkedin"
+          aria-label="Echo Lab LinkedIn"
+        >
+          IN
+        </a>
+
+        <a
+          href="mailto:info@echolabco.com"
+          className="social-icon email"
+          aria-label="Email Echo Lab"
+        >
+          @
+        </a>
+      </div>
     </div>
   );
 }
