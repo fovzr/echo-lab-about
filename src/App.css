@@ -233,7 +233,7 @@ button {
 
 @media (max-width: 700px) {
   .showreel {
-    aspect-ratio: 9 / 16;  /* portrait crop on mobile */
+    aspect-ratio: 16 / 9;
   }
 }
 
