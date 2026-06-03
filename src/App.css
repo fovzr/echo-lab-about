@@ -216,17 +216,58 @@ button {
 
 /* ─── SHOWREEL ───────────────────────────────────────────── */
 
+/*
+  The section is very tall — that extra height is the "scroll distance"
+  the user consumes while the video is pinned in place.
+  Adjust the height to give more or less scrub room.
+*/
 .showreel {
-  width: 100%;
-  overflow: hidden;
+  position: relative;
+  height: 500vh;        /* scroll distance = scrub range */
   background: #000;
-  line-height: 0; /* removes inline gap under video */
+}
+
+.showreel-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .showreel-video {
   width: 100%;
-  height: auto;   /* video dictates its own height — no zoom, no crop */
+  height: 100%;
+  object-fit: contain;  /* contain = full video visible, no crop */
   display: block;
+  background: #000;
+}
+
+/* thin progress bar at the bottom */
+.showreel-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.showreel-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #d3ecff;
+  transition: width 0.05s linear;
+}
+
+@media (max-width: 700px) {
+  .showreel {
+    height: 400vh;   /* slightly shorter scroll on mobile */
+  }
+
+  .showreel-video {
+    object-fit: contain;
+  }
 }
 
 /* ─── CLIENTS ────────────────────────────────────────────── */
