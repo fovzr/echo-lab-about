@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import logo from './assets/Echo L .png';
 import herologo from './assets/ECHO ff.png';
 import './App.css';
@@ -10,6 +10,51 @@ import eyeziLogo from './assets/Eyezi.png';
 import tmhLogo from './assets/Tmh .png';
 
 function App() {
+  const videoRef = useRef(null);
+  const progressRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const progressBar = progressRef.current;
+    const section = document.querySelector('.showreel');
+
+    if (!video || !section) return;
+
+    // Pause the video — we control it via scroll, not autoplay
+    video.pause();
+
+    const scrub = () => {
+      const rect = section.getBoundingClientRect();
+      const sectionHeight = rect.height - window.innerHeight;
+      const scrolled = -rect.top;
+      const progress = Math.min(Math.max(scrolled / sectionHeight, 0), 1);
+
+      if (video.readyState >= 2 && video.duration) {
+        video.currentTime = progress * video.duration;
+      }
+      if (progressBar) {
+        progressBar.style.width = `${progress * 100}%`;
+      }
+    };
+
+    // Run once on mount so it shows frame 0 immediately
+    const onReady = () => {
+      video.currentTime = 0;
+      scrub();
+    };
+
+    if (video.readyState >= 2) {
+      onReady();
+    } else {
+      video.addEventListener('loadeddata', onReady, { once: true });
+    }
+
+    window.addEventListener('scroll', scrub, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', scrub);
+    };
+  }, []);
+
   useEffect(() => {
     const serviceCards = document.querySelectorAll('.service-story');
 
@@ -112,14 +157,23 @@ function App() {
       {/* SHOWREEL */}
 
       <section className="showreel">
-        <video
-          className="showreel-video"
-          src="/showreel.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
+        <div className="showreel-sticky">
+          <video
+            className="showreel-video"
+            ref={videoRef}
+            src="/showreel.mp4"
+            muted
+            playsInline
+            preload="auto"
+            onLoadedData={() => {
+              const v = videoRef.current;
+              if (v) { v.pause(); v.currentTime = 0; }
+            }}
+          />
+          <div className="showreel-progress">
+            <div className="showreel-progress-bar" ref={progressRef} />
+          </div>
+        </div>
       </section>
 
       {/* CLIENTS */}
