@@ -14,72 +14,68 @@ function App() {
   const progressRef = useRef(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    const bar = progressRef.current;
-    const section = document.querySelector('.showreel');
+  const video = videoRef.current;
+  const bar = progressRef.current;
+  const section = document.querySelector('.showreel');
 
-    if (!video || !section) return;
+  if (!video || !section) return;
 
-    const isMobile = window.matchMedia('(max-width: 700px)').matches;
+  video.muted = true;
+  video.playsInline = true;
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
 
-    video.muted = true;
-    video.playsInline = true;
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
+  const isMobile = window.matchMedia('(max-width: 700px)').matches;
 
-    if (isMobile) {
-      video.loop = true;
-      video.autoplay = true;
-      video.controls = false;
+  if (isMobile) {
+    video.loop = true;
+    video.autoplay = true;
+    video.currentTime = 0.1;
 
-      const playMobileVideo = () => {
-        video.currentTime = 0.1;
-        video.play().catch(() => {});
-      };
+    video.play().catch(() => {});
 
-      if (video.readyState >= 2) {
-        playMobileVideo();
-      } else {
-        video.addEventListener('loadeddata', playMobileVideo, { once: true });
-      }
+    if (bar) bar.style.width = '100%';
+    return;
+  }
 
-      if (bar) bar.style.width = '100%';
-      return;
-    }
+  video.pause();
 
+  const scrub = () => {
+    const rect = section.getBoundingClientRect();
+
+    const start = window.innerHeight;
+    const end = -rect.height;
+
+    const progress = Math.min(
+      Math.max((start - rect.top) / (start - end), 0),
+      1
+    );
+
+    if (!video.duration) return;
+
+    const half = video.duration / 2;
+    const raw = half + progress * video.duration;
+
+    video.currentTime = (raw + 2) % video.duration;
+
+    if (bar) bar.style.width = progress * 100 + '%';
+  };
+
+  const init = () => {
     video.pause();
+    video.currentTime = video.duration / 2;
+    scrub();
+    window.addEventListener('scroll', scrub, { passive: true });
+  };
 
-    const scrub = () => {
-      const rect = section.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      const scrolled = Math.max(0, -rect.top);
-      const progress = Math.min(scrolled / total, 1);
+  if (video.readyState >= 1) {
+    init();
+  } else {
+    video.addEventListener('loadedmetadata', init, { once: true });
+  }
 
-      if (!video.duration) return;
-
-      const half = video.duration / 2;
-      const raw = half + progress * video.duration;
-
-      video.currentTime = (raw + 2) % video.duration;
-
-      if (bar) bar.style.width = progress * 100 + '%';
-    };
-
-    const init = () => {
-      video.pause();
-      video.currentTime = Math.max(0.1, video.duration / 2);
-      scrub();
-      window.addEventListener('scroll', scrub, { passive: true });
-    };
-
-    if (video.readyState >= 1) {
-      init();
-    } else {
-      video.addEventListener('loadedmetadata', init, { once: true });
-    }
-
-    return () => window.removeEventListener('scroll', scrub);
-  }, []);
+  return () => window.removeEventListener('scroll', scrub);
+}, []);
 
   useEffect(() => {
   const video = videoRef.current;
