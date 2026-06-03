@@ -109,6 +109,19 @@ function App() {
 
       </section>
 
+      {/* SHOWREEL */}
+
+      <section className="showreel">
+        <video
+          className="showreel-video"
+          src="/showreel.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      </section>
+
       {/* CLIENTS */}
 
       <section className="clients">
