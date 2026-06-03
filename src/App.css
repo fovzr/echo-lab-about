@@ -230,7 +230,9 @@ button {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: #0f1722;
+  background:
+    radial-gradient(circle at center, rgba(211, 236, 255, 0.08), transparent 38%),
+    linear-gradient(180deg, #0b111b 0%, #05070b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,7 +245,7 @@ button {
   object-position: center;
   display: block;
   background: transparent;
-  transform: scale(1.15);
+  transform: scale(1.08);
 }
 
 .showreel-progress {
@@ -265,15 +267,22 @@ button {
 @media (max-width: 700px) {
   .showreel {
     height: 78vh;
+    background:
+      radial-gradient(circle at center, rgba(211, 236, 255, 0.12), transparent 42%),
+      linear-gradient(180deg, #0b111b 0%, #05070b 100%);
   }
 
   .showreel-sticky {
     position: relative;
     height: 78vh;
+    background:
+      radial-gradient(circle at center, rgba(211, 236, 255, 0.08), transparent 42%),
+      linear-gradient(180deg, #0b111b 0%, #05070b 100%);
   }
 
   .showreel-video {
-    object-fit: cover;
+    object-fit: contain;
+    transform: scale(1.03);
   }
 }
 
