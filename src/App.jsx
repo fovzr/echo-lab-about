@@ -11,15 +11,14 @@ import tmhLogo from './assets/Tmh .png';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [videoTapped, setVideoTapped] = useState(false);
   const videoRef = useRef(null);
-  const handleVideoTap = () => {
+  // ── Force autoplay on mobile ──────────────────────────────
+  useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-      video.play();
-      setVideoTapped(true);
-    }
-  };
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {});
+  }, []);
 
   // ── Intersection observer for service cards ────────────────
   useEffect(() => {
@@ -117,12 +116,6 @@ function App() {
           playsInline
           preload="auto"
         />
-        {!videoTapped && (
-          <div className="video-tap-overlay" onClick={handleVideoTap}>
-            <div className="video-tap-btn">▶</div>
-            <p>Tap to play</p>
-          </div>
-        )}
       </section>
 
       {/* CLIENTS */}
