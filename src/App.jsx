@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import logo from './assets/Echo L .png';
 import herologo from './assets/ECHO ff.png';
 import './App.css';
@@ -11,6 +11,16 @@ import tmhLogo from './assets/Tmh .png';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [videoTapped, setVideoTapped] = useState(false);
+  const videoRef = useRef(null);
+  const handleVideoTap = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.play();
+      setVideoTapped(true);
+    }
+  };
+
   // ── Intersection observer for service cards ────────────────
   useEffect(() => {
     const serviceCards = document.querySelectorAll('.service-story');
@@ -98,6 +108,7 @@ function App() {
       {/* SHOWREEL */}
       <section className="showreel">
         <video
+          ref={videoRef}
           className="showreel-video"
           src="/showreel.mp4"
           autoPlay
@@ -106,6 +117,12 @@ function App() {
           playsInline
           preload="auto"
         />
+        {!videoTapped && (
+          <div className="video-tap-overlay" onClick={handleVideoTap}>
+            <div className="video-tap-btn">▶</div>
+            <p>Tap to play</p>
+          </div>
+        )}
       </section>
 
       {/* CLIENTS */}

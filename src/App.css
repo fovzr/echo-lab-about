@@ -214,6 +214,49 @@ button {
 }
 
 
+
+/* ─── VIDEO TAP OVERLAY (mobile) ────────────────────────── */
+
+.showreel {
+  position: relative;
+}
+
+.video-tap-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: rgba(11, 17, 27, 0.55);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.video-tap-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #fff;
+  backdrop-filter: blur(8px);
+}
+
+.video-tap-overlay p {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 /* ─── SHOWREEL ───────────────────────────────────────────── */
 
 .showreel {
