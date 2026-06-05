@@ -273,9 +273,9 @@ button {
 }
 
 .client-logo-row img {
-  height: 120px;
+  height: 160px;
   width: auto;
-  max-width: 280px;
+  max-width: 340px;
   object-fit: contain;
   flex: 0 0 auto;
   opacity: 0.72;
@@ -871,8 +871,8 @@ button {
   .client-logo-row { gap: 48px; }
 
   .client-logo-row img {
-    height: 90px;
-    max-width: 200px;
+    height: 130px;
+    max-width: 260px;
   }
 
 
