@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import logo from './assets/Echo L .png';
 import herologo from './assets/ECHO ff.png';
 import './App.css';
@@ -10,6 +10,7 @@ import eyeziLogo from './assets/Eyezi.png';
 import tmhLogo from './assets/Tmh .png';
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
   // ── Intersection observer for service cards ────────────────
   useEffect(() => {
     const serviceCards = document.querySelectorAll('.service-story');
@@ -33,13 +34,32 @@ function App() {
       {/* NAVBAR */}
       <nav className="navbar">
         <img src={logo} alt="Echo Lab logo" className="logo-img" />
+
+        {/* Desktop links */}
         <div className="nav-links">
           <a href="#about">About</a>
           <a href="#services">Services</a>
           <a href="#process">Process</a>
           <a href="#contact">Contact</a>
         </div>
+
+        {/* Hamburger button — mobile only */}
+        <button
+          className={`hamburger ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span /><span /><span />
+        </button>
       </nav>
+
+      {/* Mobile menu overlay */}
+      <div className={`mobile-menu ${menuOpen ? 'mobile-menu-open' : ''}`}>
+        <a href="#about"    onClick={() => setMenuOpen(false)}>About</a>
+        <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+        <a href="#process"  onClick={() => setMenuOpen(false)}>Process</a>
+        <a href="#contact"  onClick={() => setMenuOpen(false)}>Contact</a>
+      </div>
 
       {/* HERO */}
       <section className="hero">
