@@ -8,6 +8,8 @@ import wsaltLogo from './assets/Wsalt.png';
 import wafraLogo from './assets/Wafra inv.png';
 import eyeziLogo from './assets/Eyezi.png';
 import tmhLogo from './assets/Tmh .png';
+import { FaInstagram, FaWhatsapp, FaLinkedinIn } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -233,13 +235,45 @@ function App() {
       </section>
 
       {/* FLOATING SOCIALS */}
-      <div className="floating-socials">
-        <a href="https://instagram.com/echolab.co" target="_blank" rel="noreferrer" className="social-icon instagram" aria-label="Echo Lab Instagram">IG</a>
-        <a href="https://wa.me/96590997115" target="_blank" rel="noreferrer" className="social-icon whatsapp" aria-label="Echo Lab WhatsApp">WA</a>
-        <a href="https://www.linkedin.com/company/echolabco/" target="_blank" rel="noreferrer" className="social-icon linkedin" aria-label="Echo Lab LinkedIn">IN</a>
-        <a href="mailto:info@echolabco.com" className="social-icon email" aria-label="Email Echo Lab">@</a>
-      </div>
+<div className="floating-socials">
+  <a
+    href="https://instagram.com/echolab.co"
+    target="_blank"
+    rel="noreferrer"
+    className="social-icon instagram"
+    aria-label="Echo Lab Instagram"
+  >
+    <FaInstagram />
+  </a>
 
+  <a
+    href="https://wa.me/96590997115"
+    target="_blank"
+    rel="noreferrer"
+    className="social-icon whatsapp"
+    aria-label="Echo Lab WhatsApp"
+  >
+    <FaWhatsapp />
+  </a>
+
+  <a
+    href="https://www.linkedin.com/company/echolabco/"
+    target="_blank"
+    rel="noreferrer"
+    className="social-icon linkedin"
+    aria-label="Echo Lab LinkedIn"
+  >
+    <FaLinkedinIn />
+  </a>
+
+  <a
+    href="mailto:info@echolabco.com"
+    className="social-icon email"
+    aria-label="Email Echo Lab"
+  >
+    <MdEmail />
+  </a>
+</div>
     </div>
   );
 }

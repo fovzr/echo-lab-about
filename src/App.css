@@ -925,3 +925,6 @@ body,
   max-width: 100%;
   overflow-x: hidden;
 }
+.social-icon svg {
+  font-size: 22px;
+}
