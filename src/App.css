@@ -56,6 +56,9 @@ button {
   width: 100%;
   overflow-x: hidden;
 }
+section {
+  scroll-margin-top: 80px;
+}
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 
@@ -932,11 +935,11 @@ body,
 
 /* Truf logo size */
 .client-logo-row img[alt="Truf logo"] {
-  height: 230px;
+  height: 235px;
 }
 
 @media (max-width: 700px) {
   .client-logo-row img[alt="Truf logo"] {
-    height: 120px;
+    height: 140px;
   }
 }
