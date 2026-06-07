@@ -80,9 +80,7 @@ function App() {
         <p className="small-title">NOT YOUR USUAL LAB™</p>
         <h1>
           <br />
-          Create the Signal.
-          <br />
-          Leave the ECHO.
+          Build your ECHO.
         </h1>
       </section>
 
