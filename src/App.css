@@ -269,10 +269,6 @@ button {
   animation: marqueeRTL 16s linear infinite;
 }
 
-.client-logo-band:hover .client-logo-row {
-  animation-play-state: paused;
-}
-
 .client-logo-row img {
   height: 220px;
   width: auto;
@@ -928,7 +924,4 @@ body,
 .app {
   max-width: 100%;
   overflow-x: hidden;
-}
-.social-icon svg {
-  font-size: 24px;
 }

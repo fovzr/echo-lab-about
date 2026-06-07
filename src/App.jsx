@@ -8,34 +8,10 @@ import wsaltLogo from './assets/Wsalt.png';
 import wafraLogo from './assets/Wafra inv.png';
 import eyeziLogo from './assets/Eyezi.png';
 import tmhLogo from './assets/Tmh .png';
-import { FaInstagram, FaWhatsapp, FaLinkedinIn } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const videoRef = useRef(null);
-  const handleProjectSubmit = (e) => {
-    e.preventDefault();
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const name = formData.get('name');
-    const company = formData.get('company');
-    const email = formData.get('email');
-    const message = formData.get('message');
-
-    const subject = encodeURIComponent(`New project inquiry from ${name || 'Echo Lab website'}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\n` +
-      `Company: ${company}\n` +
-      `Email: ${email}\n\n` +
-      `Message:\n${message}`
-    );
-
-    window.location.href = `mailto:info@echolabco.com?subject=${subject}&body=${body}`;
-  };
-
   // ── Force autoplay on mobile ──────────────────────────────
   useEffect(() => {
     const video = videoRef.current;
@@ -102,7 +78,9 @@ function App() {
         <p className="small-title">NOT YOUR USUAL LAB™</p>
         <h1>
           <br />
-          Build your ECHO.
+          Create the Signal.
+          <br />
+          Leave the ECHO.
         </h1>
       </section>
 
@@ -150,16 +128,16 @@ function App() {
         </p>
         <div className="client-logo-band">
           <div className="client-logo-row">
-            <img src={trufLogo}   alt="Truf logo" />
+            <img src={trufLogo}   alt="Truf logo"   style={{ height: '280px' }} />
             <img src={strikeLogo} alt="Strike logo" />
             <img src={wsaltLogo}  alt="Wsalt logo" />
-            <img src={wafraLogo}  alt="Wafra logo" />
+            <img src={wafraLogo}  alt="Wafra logo"  style={{ height: '140px' }} />
             <img src={eyeziLogo}  alt="Eyezi logo" />
             <img src={tmhLogo}    alt="TMH logo" />
-            <img src={trufLogo}   alt="Truf logo" />
+            <img src={trufLogo}   alt="Truf logo"   style={{ height: '280px' }} />
             <img src={strikeLogo} alt="Strike logo" />
             <img src={wsaltLogo}  alt="Wsalt logo" />
-            <img src={wafraLogo}  alt="Wafra logo" />
+            <img src={wafraLogo}  alt="Wafra logo"  style={{ height: '140px' }} />
             <img src={eyeziLogo}  alt="Eyezi logo" />
             <img src={tmhLogo}    alt="TMH logo" />
           </div>
@@ -242,58 +220,25 @@ function App() {
               </div>
             </div>
           </div>
-          <form className="contact-form" onSubmit={handleProjectSubmit}>
+          <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
             <div className="form-row">
-              <input type="text" name="name" placeholder="Name" required />
-              <input type="text" name="company" placeholder="Company" />
+              <input type="text" placeholder="Name" />
+              <input type="text" placeholder="Company" />
             </div>
-            <input type="email" name="email" placeholder="Email Address" required />
-            <textarea name="message" placeholder="Tell us about your project..." required />
-            <button type="submit" className="contact-btn">Start a Project</button>
+            <input type="email" placeholder="Email Address" />
+            <textarea placeholder="Tell us about your project..." />
+            <button type="button" className="contact-btn">Start a Project</button>
           </form>
         </div>
       </section>
 
       {/* FLOATING SOCIALS */}
-<div className="floating-socials">
-  <a
-    href="https://instagram.com/echolab.co"
-    target="_blank"
-    rel="noreferrer"
-    className="social-icon instagram"
-    aria-label="Echo Lab Instagram"
-  >
-    <FaInstagram />
-  </a>
-
-  <a
-    href="https://wa.me/96590997115"
-    target="_blank"
-    rel="noreferrer"
-    className="social-icon whatsapp"
-    aria-label="Echo Lab WhatsApp"
-  >
-    <FaWhatsapp />
-  </a>
-
-  <a
-    href="https://www.linkedin.com/company/echolabco/"
-    target="_blank"
-    rel="noreferrer"
-    className="social-icon linkedin"
-    aria-label="Echo Lab LinkedIn"
-  >
-    <FaLinkedinIn />
-  </a>
-
-  <a
-    href="mailto:info@echolabco.com"
-    className="social-icon email"
-    aria-label="Email Echo Lab"
-  >
-    <MdEmail />
-  </a>
-</div>
+      <div className="floating-socials">
+        <a href="https://instagram.com/echolab.co" target="_blank" rel="noreferrer" className="social-icon instagram" aria-label="Echo Lab Instagram">IG</a>
+        <a href="https://wa.me/96590997115" target="_blank" rel="noreferrer" className="social-icon whatsapp" aria-label="Echo Lab WhatsApp">WA</a>
+        <a href="https://www.linkedin.com/company/echolabco/" target="_blank" rel="noreferrer" className="social-icon linkedin" aria-label="Echo Lab LinkedIn">IN</a>
+        <a href="mailto:info@echolabco.com" className="social-icon email" aria-label="Email Echo Lab">@</a>
+      </div>
 
     </div>
   );
