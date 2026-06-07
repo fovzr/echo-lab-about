@@ -12,6 +12,28 @@ import tmhLogo from './assets/Tmh .png';
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const videoRef = useRef(null);
+  const handleProjectSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const name = formData.get('name');
+    const company = formData.get('company');
+    const email = formData.get('email');
+    const message = formData.get('message');
+
+    const subject = encodeURIComponent(`New project inquiry from ${name || 'Echo Lab website'}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\n` +
+      `Company: ${company}\n` +
+      `Email: ${email}\n\n` +
+      `Message:\n${message}`
+    );
+
+    window.location.href = `mailto:info@echolabco.com?subject=${subject}&body=${body}`;
+  };
+
   // ── Force autoplay on mobile ──────────────────────────────
   useEffect(() => {
     const video = videoRef.current;
@@ -218,14 +240,14 @@ function App() {
               </div>
             </div>
           </div>
-          <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="contact-form" onSubmit={handleProjectSubmit}>
             <div className="form-row">
-              <input type="text" placeholder="Name" />
-              <input type="text" placeholder="Company" />
+              <input type="text" name="name" placeholder="Name" required />
+              <input type="text" name="company" placeholder="Company" />
             </div>
-            <input type="email" placeholder="Email Address" />
-            <textarea placeholder="Tell us about your project..." />
-            <button type="button" className="contact-btn">Start a Project</button>
+            <input type="email" name="email" placeholder="Email Address" required />
+            <textarea name="message" placeholder="Tell us about your project..." required />
+            <button type="submit" className="contact-btn">Start a Project</button>
           </form>
         </div>
       </section>
