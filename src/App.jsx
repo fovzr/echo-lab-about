@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
-import logo from './assets/Echo L .png';
-import herologo from './assets/ECHO ff.png';
+import logo from './assets/EchoL.png';
+import herologo from './assets/ECHOff.png';
 import './App.css';
-import trufLogo from './assets/Truf .png';
-import strikeLogo from './assets/Strike .png';
+import trufLogo from './assets/Truf.png';
+import strikeLogo from './assets/Strike.png';
 import wsaltLogo from './assets/Wsalt.png';
-import wafraLogo from './assets/Wafra inv.png';
+import wafraLogo from './assets/WafraInv.png';
 import eyeziLogo from './assets/Eyezi.png';
-import tmhLogo from './assets/Tmh .png';
+import tmhLogo from './assets/Tmh.png';
 import { FaInstagram, FaWhatsapp, FaLinkedinIn } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 
@@ -234,7 +234,7 @@ function App() {
         </div>
       </section>
 
-      {/* FLOATING SOCIALS */}
+     {/* FLOATING SOCIALS */}
 <div className="floating-socials">
   <a
     href="https://instagram.com/echolab.co"
@@ -274,6 +274,7 @@ function App() {
     <MdEmail />
   </a>
 </div>
+
     </div>
   );
 }
