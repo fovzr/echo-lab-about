@@ -128,13 +128,14 @@ function App() {
         </p>
         <div className="client-logo-band">
           <div className="client-logo-row">
-            <img src={trufLogo}   alt="Truf logo"   style={{ height: '280px' }} />
+            <img src={trufLogo}   alt="Truf logo"   className="truf-logo" />
             <img src={strikeLogo} alt="Strike logo" />
             <img src={wsaltLogo}  alt="Wsalt logo" />
             <img src={wafraLogo}  alt="Wafra logo"  style={{ height: '140px' }} />
             <img src={eyeziLogo}  alt="Eyezi logo" />
             <img src={tmhLogo}    alt="TMH logo" />
-            <img src={trufLogo}   alt="Truf logo"   style={{ height: '280px' }} />
+            <img src={trufLogo}   alt="Truf logo"   className="truf-logo" />
+
             <img src={strikeLogo} alt="Strike logo" />
             <img src={wsaltLogo}  alt="Wsalt logo" />
             <img src={wafraLogo}  alt="Wafra logo"  style={{ height: '140px' }} />

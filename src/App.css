@@ -929,3 +929,14 @@ body,
 .social-icon svg {
   font-size: 22px;
 }
+
+/* Truf logo size */
+.client-logo-row img[alt="Truf logo"] {
+  height: 230px;
+}
+
+@media (max-width: 700px) {
+  .client-logo-row img[alt="Truf logo"] {
+    height: 120px;
+  }
+}
