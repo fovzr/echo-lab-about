@@ -269,8 +269,8 @@ section {
   width: max-content;
   padding: 28px 0;
   will-change: transform;
-  transform: translateZ(0);
-  animation: marqueeRTL 28s linear infinite;
+  transform: translate3d(0, 0, 0);
+  animation: marqueeRTL 24s linear infinite;
 }
 
 .client-logo-row img {
@@ -867,15 +867,15 @@ section {
   }
 
   .client-logo-row {
-  gap: 42px;
-  animation-duration: 32s;
-}
+    gap: 42px;
+    animation-duration: 24s;
+  }
 
-.client-logo-row img {
-  height: 105px;
-  max-width: 220px;
-  filter: none;
-}
+  .client-logo-row img {
+    height: 105px;
+    max-width: 220px;
+    filter: none;
+  }
 
 
   .service-story {
@@ -935,13 +935,21 @@ body,
   font-size: 22px;
 }
 
-/* Truf logo size */
+/* Individual client logo sizes */
 .client-logo-row img[alt="Truf logo"] {
-  height: 125px;
+  height: 150px;
+}
+
+.client-logo-row img[alt="Wafra logo"] {
+  height: 85px;
 }
 
 @media (max-width: 700px) {
   .client-logo-row img[alt="Truf logo"] {
-    height: 70px;
+    height: 120px;
+  }
+
+  .client-logo-row img[alt="Wafra logo"] {
+    height: 65px;
   }
 }
