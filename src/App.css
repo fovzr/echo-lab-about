@@ -56,9 +56,6 @@ button {
   width: 100%;
   overflow-x: hidden;
 }
-section {
-  scroll-margin-top: 80px;
-}
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 
@@ -216,8 +213,6 @@ section {
   color: rgba(245, 247, 250, 0.68);
 }
 
-
-
 /* ─── SHOWREEL ───────────────────────────────────────────── */
 
 .showreel {
@@ -250,8 +245,6 @@ section {
   color: rgba(245, 247, 250, 0.68);
 }
 
-/* ── Marquee — no box, full-bleed, dual rows ── */
-
 .client-logo-band {
   position: relative;
   width: 100vw;
@@ -260,21 +253,26 @@ section {
   overflow: hidden;
 }
 
-
-
 .client-logo-row {
   display: flex;
   align-items: center;
-  gap: 72px;
-  width: max-content;
   padding: 28px 0;
   will-change: transform;
-  animation: marqueeRTL 24s linear infinite;
+  animation: marqueeScroll 28s linear infinite;
 }
 
-@keyframes marqueeRTL {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
+.client-logo-set {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  padding-right: 72px;
+  flex-shrink: 0;
+}
+
+/* 4 sets, animate by 1 set = 25% of total width */
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
 }
 
 .client-logo-row img {
@@ -282,7 +280,7 @@ section {
   width: auto;
   max-width: 260px;
   object-fit: contain;
-  flex: 0 0 auto;
+  flex-shrink: 0;
   opacity: 0.85;
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
@@ -697,18 +695,11 @@ section {
 
 /* ─── KEYFRAMES ──────────────────────────────────────────── */
 
-/*
-  LEFT-TO-RIGHT marquee:
-  The track contains 2 identical sets of logos so the total width = 2× one set.
-  We start at -50% (second set visible) and slide to 0% (first set visible).
-  When it resets to -50% the jump is invisible — perfect loop.
-*/
-/* Row 1: left→right */
 @keyframes marqueeRTL {
   from { transform: translate3d(-50%, 0, 0); }
   to   { transform: translate3d(0, 0, 0); }
 }
-/* Row 2: right→left */
+
 @keyframes marqueeLTR {
   from { transform: translate3d(0, 0, 0); }
   to   { transform: translate3d(-50%, 0, 0); }
@@ -755,9 +746,6 @@ section {
   to   { transform: translateY(-28px) scale(1.08); }
 }
 
-/* ─── RESPONSIVE ─────────────────────────────────────────── */
-
-
 /* ─── HAMBURGER & MOBILE MENU ────────────────────────────── */
 
 .hamburger {
@@ -785,7 +773,6 @@ section {
   transform-origin: center;
 }
 
-/* Animate to X when open */
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -823,6 +810,8 @@ section {
 .mobile-menu a:hover {
   color: #d3ecff;
 }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
 
 @media (max-width: 1000px) {
   .about,
@@ -864,23 +853,20 @@ section {
     margin: 18px auto 30px;
   }
 
-  /* Mobile marquee — already full-bleed, just tweak sizes */
   .client-logo-band {
     margin-left: -6%;
     margin-top: 44px;
   }
 
-  .client-logo-row {
+  .client-logo-set {
     gap: 42px;
-    animation-duration: 24s;
+    padding-right: 42px;
   }
 
   .client-logo-row img {
-    height: 105px;
-    max-width: 220px;
-    filter: none;
+    height: 90px;
+    max-width: 180px;
   }
-
 
   .service-story {
     grid-template-columns: 1fr;
@@ -937,26 +923,4 @@ body,
 
 .social-icon svg {
   font-size: 22px;
-}
-
-/* Individual client logo sizes */
-.client-logo-row img[alt="Truf logo"] {
-  height: 150px;
-}
-
-.client-logo-row img[alt="Wafra logo"] {
-  height: 85px;
-}
-
-@media (max-width: 700px) {
-  .client-logo-row img[alt="Truf logo"] {
-    height: 100px;
-  }
-
-  .client-logo-row img[alt="Wafra logo"] {
-    height: 100px;
-  }
-  .client-logo-row img[alt="Strike logo"] {
-    height: 100px;
-  }
 }

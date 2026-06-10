@@ -1,15 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
-import logo from './assets/EchoL.png';
-import herologo from './assets/ECHOff.png';
+import logo from './assets/Echo L .png';
+import herologo from './assets/ECHO ff.png';
 import './App.css';
-import trufLogo from './assets/Truf.png';
-import strikeLogo from './assets/Strike.png';
+import trufLogo from './assets/Truf .png';
+import strikeLogo from './assets/Strike .png';
 import wsaltLogo from './assets/Wsalt.png';
-import wafraLogo from './assets/WafraInv.png';
+import wafraLogo from './assets/Wafra inv.png';
 import eyeziLogo from './assets/Eyezi.png';
-import tmhLogo from './assets/Tmh.png';
-import { FaInstagram, FaWhatsapp, FaLinkedinIn } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
+import tmhLogo from './assets/Tmh .png';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -80,7 +78,9 @@ function App() {
         <p className="small-title">NOT YOUR USUAL LAB™</p>
         <h1>
           <br />
-          Build your ECHO.
+          Create the Signal.
+          <br />
+          Leave the ECHO.
         </h1>
       </section>
 
@@ -128,19 +128,16 @@ function App() {
         </p>
         <div className="client-logo-band">
           <div className="client-logo-row">
-            <img src={trufLogo} alt="Truf logo" className="truf-logo" />
-            <img src={strikeLogo} alt="Strike logo" className="Strike-logo"/>
-            <img src={wsaltLogo} alt="Wsalt logo" />
-            <img src={wafraLogo} alt="Wafra logo" className="wafra-logo" />
-            <img src={eyeziLogo} alt="Eyezi logo" />
-            <img src={tmhLogo} alt="TMH logo" />
-
-            <img src={trufLogo} alt="Truf logo" className="truf-logo" />
-            <img src={strikeLogo} alt="Strike logo" />
-            <img src={wsaltLogo} alt="Wsalt logo" />
-            <img src={wafraLogo} alt="Wafra logo" className="wafra-logo" />
-            <img src={eyeziLogo} alt="Eyezi logo" />
-            <img src={tmhLogo} alt="TMH logo" />
+            {[0,1,2,3].map(i => (
+              <span key={i} className="client-logo-set">
+                <img src={trufLogo}   alt="Truf logo"   className="truf-logo" />
+                <img src={strikeLogo} alt="Strike logo" />
+                <img src={wsaltLogo}  alt="Wsalt logo" />
+                <img src={wafraLogo}  alt="Wafra logo"  className="wafra-logo" />
+                <img src={eyeziLogo}  alt="Eyezi logo" />
+                <img src={tmhLogo}    alt="TMH logo" />
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -233,46 +230,13 @@ function App() {
         </div>
       </section>
 
-     {/* FLOATING SOCIALS */}
-<div className="floating-socials">
-  <a
-    href="https://instagram.com/echolab.co"
-    target="_blank"
-    rel="noreferrer"
-    className="social-icon instagram"
-    aria-label="Echo Lab Instagram"
-  >
-    <FaInstagram />
-  </a>
-
-  <a
-    href="https://wa.me/96590997115"
-    target="_blank"
-    rel="noreferrer"
-    className="social-icon whatsapp"
-    aria-label="Echo Lab WhatsApp"
-  >
-    <FaWhatsapp />
-  </a>
-
-  <a
-    href="https://www.linkedin.com/company/echolabco/"
-    target="_blank"
-    rel="noreferrer"
-    className="social-icon linkedin"
-    aria-label="Echo Lab LinkedIn"
-  >
-    <FaLinkedinIn />
-  </a>
-
-  <a
-    href="mailto:info@echolabco.com"
-    className="social-icon email"
-    aria-label="Email Echo Lab"
-  >
-    <MdEmail />
-  </a>
-</div>
+      {/* FLOATING SOCIALS */}
+      <div className="floating-socials">
+        <a href="https://instagram.com/echolab.co" target="_blank" rel="noreferrer" className="social-icon instagram" aria-label="Echo Lab Instagram">IG</a>
+        <a href="https://wa.me/96590997115" target="_blank" rel="noreferrer" className="social-icon whatsapp" aria-label="Echo Lab WhatsApp">WA</a>
+        <a href="https://www.linkedin.com/company/echolabco/" target="_blank" rel="noreferrer" className="social-icon linkedin" aria-label="Echo Lab LinkedIn">IN</a>
+        <a href="mailto:info@echolabco.com" className="social-icon email" aria-label="Email Echo Lab">@</a>
+      </div>
 
     </div>
   );
