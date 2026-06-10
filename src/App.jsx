@@ -20,6 +20,30 @@ function App() {
     video.play().catch(() => {});
   }, []);
 
+  // ── JS-driven marquee ────────────────────────────────────
+  const marqueeRef = useRef(null);
+  useEffect(() => {
+    const row = marqueeRef.current;
+    if (!row) return;
+    const sets = row.querySelectorAll('.client-logo-set');
+    if (!sets.length) return;
+
+    let x = 0;
+    let raf;
+    const speed = 0.5; // px per frame — increase to go faster
+
+    const tick = () => {
+      const setWidth = sets[0].offsetWidth;
+      x -= speed;
+      if (Math.abs(x) >= setWidth) x = 0; // reset by exactly one set
+      row.style.transform = `translateX(${x}px)`;
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   // ── Intersection observer for service cards ────────────────
   useEffect(() => {
     const serviceCards = document.querySelectorAll('.service-story');
@@ -127,7 +151,7 @@ function App() {
           media, and creative direction.
         </p>
         <div className="client-logo-band">
-          <div className="client-logo-row">
+          <div className="client-logo-row" ref={marqueeRef}>
             {[0,1,2,3].map(i => (
               <span key={i} className="client-logo-set">
                 <img src={trufLogo}   alt="Truf logo"   className="truf-logo" />

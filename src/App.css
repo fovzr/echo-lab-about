@@ -258,7 +258,6 @@ button {
   align-items: center;
   padding: 28px 0;
   will-change: transform;
-  animation: marqueeScroll 28s linear infinite;
 }
 
 .client-logo-set {
@@ -269,11 +268,7 @@ button {
   flex-shrink: 0;
 }
 
-/* 4 sets, animate by 1 set = 25% of total width */
-@keyframes marqueeScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-25%); }
-}
+
 
 .client-logo-row img {
   height: 140px;
