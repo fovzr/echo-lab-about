@@ -269,26 +269,24 @@ section {
   width: max-content;
   padding: 28px 0;
   will-change: transform;
-  animation: marqueeRTL 16s linear infinite;
+  transform: translateZ(0);
+  animation: marqueeRTL 28s linear infinite;
 }
 
 .client-logo-row img {
-  height: 220px;
+  height: 140px;
   width: auto;
-  max-width: 420px;
+  max-width: 260px;
   object-fit: contain;
   flex: 0 0 auto;
-  opacity: 0.72;
-  filter: brightness(1.1) drop-shadow(0 4px 20px rgba(211, 236, 255, 0.12));
-  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  opacity: 0.85;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .client-logo-row img:hover {
   opacity: 1;
-  transform: scale(1.12);
-  filter: brightness(1.4) drop-shadow(0 8px 28px rgba(211, 236, 255, 0.4));
+  transform: scale(1.04);
 }
-
 
 /* ─── SERVICES ───────────────────────────────────────────── */
 
@@ -868,12 +866,16 @@ section {
     margin-top: 44px;
   }
 
-  .client-logo-row { gap: 48px; }
+  .client-logo-row {
+  gap: 42px;
+  animation-duration: 32s;
+}
 
-  .client-logo-row img {
-    height: 180px;
-    max-width: 340px;
-  }
+.client-logo-row img {
+  height: 105px;
+  max-width: 220px;
+  filter: none;
+}
 
 
   .service-story {
@@ -935,11 +937,11 @@ body,
 
 /* Truf logo size */
 .client-logo-row img[alt="Truf logo"] {
-  height: 235px;
+  height: 125px;
 }
 
 @media (max-width: 700px) {
   .client-logo-row img[alt="Truf logo"] {
-    height: 140px;
+    height: 70px;
   }
 }
