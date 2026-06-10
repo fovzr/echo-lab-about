@@ -129,7 +129,7 @@ function App() {
         <div className="client-logo-band">
           <div className="client-logo-row">
             <img src={trufLogo} alt="Truf logo" className="truf-logo" />
-            <img src={strikeLogo} alt="Strike logo" />
+            <img src={strikeLogo} alt="Strike logo" className="Strike-logo"/>
             <img src={wsaltLogo} alt="Wsalt logo" />
             <img src={wafraLogo} alt="Wafra logo" className="wafra-logo" />
             <img src={eyeziLogo} alt="Eyezi logo" />

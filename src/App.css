@@ -269,8 +269,12 @@ section {
   width: max-content;
   padding: 28px 0;
   will-change: transform;
-  transform: translate3d(0, 0, 0);
   animation: marqueeRTL 24s linear infinite;
+}
+
+@keyframes marqueeRTL {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 
 .client-logo-row img {
@@ -946,10 +950,13 @@ body,
 
 @media (max-width: 700px) {
   .client-logo-row img[alt="Truf logo"] {
-    height: 120px;
+    height: 80px;
   }
 
   .client-logo-row img[alt="Wafra logo"] {
-    height: 65px;
+    height: 100px;
+  }
+  .client-logo-row img[alt="Strike logo"] {
+    height: 80px;
   }
 }
